@@ -8,5 +8,5 @@ import com.udaan.quiz.entity.QuestionEntity;
 @Repository
 public interface QuestionRepositry extends CrudRepository<QuestionEntity, Long>{
 
-	public QuestionEntity updateListOfAnswers(Long id, String listOfAnswers, int correctAnswer);
+//	public QuestionEntity updateListOfAnswers(Long id, String listOfAnswers, int correctAnswer);
 }

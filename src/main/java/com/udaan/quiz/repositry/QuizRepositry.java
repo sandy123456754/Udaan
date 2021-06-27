@@ -12,6 +12,6 @@ import com.udaan.quiz.entity.QuizEntity;
 public interface QuizRepositry extends CrudRepository<QuizEntity, Long>{
 
 //	@Query( value =  "select * from quiz q limit 10", nativeQuery = true)
-	public List<QuizEntity> findAllQuizes(Pageable pages);
+	public List<QuizEntity> findAll(Pageable pages);
 	
 }

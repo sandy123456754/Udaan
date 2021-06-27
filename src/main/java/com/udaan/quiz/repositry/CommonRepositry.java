@@ -11,7 +11,7 @@ import com.udaan.quiz.entity.CommonEntity;
 @Repository
 public interface CommonRepositry extends CrudRepository<CommonEntity, String>{
 
-	@Query("select * from CommonEntity c where c.quiz_id = ?1 limit 10")
+//	@Query(  value =  "select c from CommonEntity c where c.quiz_id = ?1 limit 10", nativeQuery = true)
 	public List<CommonEntity> findByQuizId(Long quizId);
 	
 }

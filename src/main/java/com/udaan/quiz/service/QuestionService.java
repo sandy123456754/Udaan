@@ -36,8 +36,10 @@ public class QuestionService {
 	}
 	
 	public boolean createPossibleAnswers(Long id,  PossibleAnswersForQuestion answersForQuestion) throws JsonProcessingException {
-		QuestionEntity entity = questionRepositry.updateListOfAnswers(id, objectMapper.writeValueAsString(new Answers(answersForQuestion.getListOfAnswers())), answersForQuestion.getCorrectOption());
-		if(entity != null) {
+		QuestionEntity entity = questionRepositry.findById(id).get();
+		entity.setCorrectAnswer(answersForQuestion.getCorrectOption());
+		entity.setListOfAnswers(objectMapper.writeValueAsString(new Answers(answersForQuestion.getListOfAnswers())));
+		if(questionRepositry.save(entity) != null) {
 			return true;
 		}
 		return false;

@@ -51,7 +51,7 @@ public class QuizService {
 
 		List<Quiz> quizs = new ArrayList<Quiz>();
 
-		List<QuizEntity> quizEntities = quizRepositry.findAllQuizes(PageRequest.of(0, pages));
+		List<QuizEntity> quizEntities = quizRepositry.findAll(PageRequest.of(0, pages));
 		for (QuizEntity q : quizEntities) {
 			List<CommonEntity> commonEntities = commonRepositry.findByQuizId(q.getId());
 
