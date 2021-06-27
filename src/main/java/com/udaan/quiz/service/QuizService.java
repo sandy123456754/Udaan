@@ -9,9 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udaan.quiz.entity.CommonEntity;
 import com.udaan.quiz.entity.QuestionEntity;
 import com.udaan.quiz.entity.QuizEntity;
+import com.udaan.quiz.model.Answers;
 import com.udaan.quiz.model.Question;
 import com.udaan.quiz.model.Quiz;
 import com.udaan.quiz.repositry.CommonRepositry;
@@ -30,6 +34,9 @@ public class QuizService {
 	@Autowired
 	private QuestionRepositry questionRepositry;
 	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
 	public Quiz createQuiz(Quiz quiz) {
 		List<String> questions = quiz.getListOfQuestions();
 		QuizEntity quizEntity = quizRepositry.save(new QuizEntity(quiz.getName()));
@@ -40,7 +47,7 @@ public class QuizService {
 		return quiz;
 	}
 	
-	public List<Quiz> getQuizes(int pages) {
+	public List<Quiz> getQuizes(int pages) throws Exception{
 
 		List<Quiz> quizs = new ArrayList<Quiz>();
 
@@ -58,7 +65,7 @@ public class QuizService {
 						QuestionEntity questionEntity = entity.get();
 						Question question = new Question();
 						question.setName(questionEntity.getName());
-//						question.setListOfAnswers(questionEntity.getListOfAnswers());
+						question.setListOfAnswers(objectMapper.readValue(questionEntity.getListOfAnswers(), Answers.class).getAnswers());
 						question.setCorrectAnswer(questionEntity.getCorrectAnswer());
 						questions.add(question);
 					}

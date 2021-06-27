@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udaan.quiz.entity.CommonEntity;
 import com.udaan.quiz.entity.QuestionEntity;
+import com.udaan.quiz.model.Answers;
 import com.udaan.quiz.model.PossibleAnswersForQuestion;
 import com.udaan.quiz.model.Question;
 import com.udaan.quiz.repositry.CommonRepositry;
@@ -35,7 +36,7 @@ public class QuestionService {
 	}
 	
 	public boolean createPossibleAnswers(Long id,  PossibleAnswersForQuestion answersForQuestion) throws JsonProcessingException {
-		QuestionEntity entity = questionRepositry.updateListOfAnswers(id, objectMapper.writeValueAsString(answersForQuestion.getListOfAnswers()), answersForQuestion.getCorrectOption());
+		QuestionEntity entity = questionRepositry.updateListOfAnswers(id, objectMapper.writeValueAsString(new Answers(answersForQuestion.getListOfAnswers())), answersForQuestion.getCorrectOption());
 		if(entity != null) {
 			return true;
 		}
